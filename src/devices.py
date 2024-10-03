@@ -7,14 +7,14 @@ class Device:
         self.address = address
         self.output = None
     
-    def get_date(self):
+    def get_data(self):
         if id == 0: # Temperature sensor
-            return random.randint(18, 23)
+            self.output = random.randint(18, 23)
         if id == 1: # Movement sensor
-            return random.choice([True, False])
+            self.output = random.choice([True, False])
 
     def update(self):
-        self.output = self.get_data()
+        return self.output
 
     def __str__(self) -> str:
         return f"Device {self.id}, Address: {self.address}, Output: {self.output}"

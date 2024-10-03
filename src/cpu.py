@@ -17,10 +17,17 @@ class Cpu:
         for i in range(len(self.board['gpio'])):
             self.gpio.append(Gpio(i, self.board['gpio'][i]))
             
-        self.memory = Memory(self.board['ram'] * 1024)
+        self.memory = Memory(self.board['ram'])
         self.step = 0
         self.registers = {'A': 0, 'B': 0, 'X': 0, 'Y': 0, 'PC': 0, 'SP': 0, 'PSW': 0, 'IR': 0, 'FLAGS': 0}
         self.bus = Bus()
+    
+    def update(self):
+        self.step += 1
+        #opcode = self.memory.read(self.registers['PC'])
+        self.registers['PC'] += 1
+        
+        self.bus.update_devices()
     
     def __str__(self):
         return f"{self.gpio}"
@@ -47,8 +54,12 @@ if __name__ == "__main__":
     print(repr(cpu))
     cpu.memory.clear()
     
-    tmp = Device(0, 0x50)
+    tmp = Device(0, 0x00)
     
     cpu.bus.add_device(tmp)
     
     print(repr(cpu))
+    
+    for _ in range(100):
+        cpu.update()
+        print(repr(cpu))
