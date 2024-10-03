@@ -1,0 +1,1 @@
+BOARDS = {0: {'name': 'GPMCU', 'ram': 1, 'flash': 64, 'eeprom': 0, 'gpio': {0: 0, 1: 0, 2: 0}}}
